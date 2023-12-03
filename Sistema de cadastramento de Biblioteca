@@ -1,1 +1,342 @@
+import tkinter as tk
+from tkinter import messagebox
+import os
 
+class SistemaLogin:
+    def __init__(self, tela):
+        self.tela = tela
+        self.tela.title("Biblioteca Vinícios de Morais:Acesso bibliotecário")
+        self.tela.geometry("700x500")
+        self.tela.configure(background='black')
+        self.tela.resizable=(False, False)
+        self.create_widgets()
+    def create_widgets(self):
+        global entry_usuario1
+        global entry_senha
+        # Entradas de usuário e senha
+        label_usuario = tk.Label(self.tela, text="Usuário:")
+        label_usuario.place(relx=0.05, rely=0.4, anchor="center")
+        entry_usuario1 = tk.Entry(self.tela)
+        entry_usuario1.place(relx=0.2, rely=0.4, anchor="center")
+
+
+        label_senha = tk.Label(self.tela, text="Senha:")
+        label_senha.place(relx=0.05, rely=0.5, anchor="center")
+        entry_senha = tk.Entry(self.tela, show="*")
+        entry_senha.place(relx=0.2, rely=0.5, anchor="center")
+
+
+        # Botão de login
+        self.botao_login = tk.Button(self.tela, text="Login", command=self.verificar_login)
+        self.botao_login.place(relx=0.2, rely=0.6, anchor="center")
+
+
+        self.imagem = tk.PhotoImage(file="3.png")  
+        self.label_imagem = tk.Label(self.tela, image=self.imagem, bg='black')
+        self.label_imagem.place(relx=0.3, rely=0.1)
+
+
+        icone = tk.PhotoImage(file="2.png")
+        self.tela.iconphoto(True, icone)
+
+
+    def verificar_login(self):
+        usuario = entry_usuario1.get()
+        senha = entry_senha.get()
+   
+        if usuario == "Ana Ruth" and senha == "Anavitoria" or usuario==" Alison Vieira" and senha=="00000" or usuario=="Bruna Luana" and senha=="bolinha04":
+            messagebox.showinfo("Login", "Login bem-sucedido!")
+            self.abrir_nova_janela()
+        else:
+            messagebox.showerror("Login", "Seus dados estão errados")
+    def abrir_nova_janela(self):
+            global entry_nome
+            global entry_cpf
+            global entry_data
+            global entry_cpf_responsa
+            global entry_email
+            global entry_telefone
+            global entry_senh
+            global entry_localizacao
+            global entry_usuario
+            global entry_rua
+            nova_janela = tk.Toplevel(self.tela)
+            nova_janela.title("Biblioteca Vinícios de Morais:Cadastramento")
+            nova_janela.geometry("700x500")
+            nova_janela.configure(background='#008080')
+            nova_janela.resizable=(False, False)
+
+
+           
+            label_nome = tk.Label(nova_janela, text="Nome :")
+            label_nome.place(relx=0.05, rely=0.4, anchor="center")
+            entry_nome = tk.Entry(nova_janela)
+            entry_nome.place(relx=0.2, rely=0.4, anchor="center")
+
+
+            label_email = tk.Label(nova_janela, text="Email:")
+            label_email.place(relx=0.05, rely=0.5, anchor="center")
+            entry_email = tk.Entry(nova_janela)
+            entry_email.place(relx=0.2, rely=0.5, anchor="center")
+
+
+            label_telefone = tk.Label(nova_janela, text="Telefone:")
+            label_telefone.place(relx=0.05, rely=0.6, anchor="center")
+            entry_telefone = tk.Entry(nova_janela)
+            entry_telefone.place(relx=0.2, rely=0.6, anchor="center")
+            entry_telefone.bind('<KeyRelease>', self.formatar_telefone)
+
+
+            label_cpf = tk.Label(nova_janela, text="CPF:")
+            label_cpf.place(relx=0.05, rely=0.7, anchor="center")
+            entry_cpf = tk.Entry(nova_janela)
+            entry_cpf.place(relx=0.2, rely=0.7, anchor="center")
+            entry_cpf.bind('<KeyRelease>', self.formatar_cpf)
+            
+            
+            label_data= tk.Label(nova_janela, text="Data:")
+            label_data.place(relx=0.05, rely=0.8, anchor="center")
+            entry_data= tk.Entry(nova_janela)
+            entry_data.place(relx=0.2, rely=0.8, anchor="center")
+            entry_data.bind('<KeyRelease>', self.formatar_data)
+            
+            
+#outro lado
+            label_cpf_responsa = tk.Label(nova_janela, text="cpf do responsavel:")
+            label_cpf_responsa.place(relx=0.70, rely=0.4, anchor="center")
+            entry_cpf_responsa = tk.Entry(nova_janela)
+            entry_cpf_responsa.place(relx=0.88, rely=0.4, anchor="center")
+            entry_cpf_responsa.bind('<KeyRelease>', self.formatar_cpf_r)
+
+
+            label_usuario = tk.Label(nova_janela, text="Nome de usuario:")
+            label_usuario.place(relx=0.70, rely=0.5, anchor="center")
+            entry_usuario = tk.Entry(nova_janela)
+            entry_usuario.place(relx=0.88, rely=0.5, anchor="center")
+     
+                 
+            label_senh = tk.Label(nova_janela, text="senha:")
+            label_senh.place(relx=0.70, rely=0.6, anchor="center")
+            entry_senh = tk.Entry(nova_janela,show="*")
+            entry_senh.place(relx=0.88, rely=0.6, anchor="center")
+
+
+            label_localizacao = tk.Label(nova_janela, text="localização:")
+            label_localizacao.place(relx=0.70, rely=0.7, anchor="center")
+            entry_localizacao = tk.Entry(nova_janela)
+            entry_localizacao.place(relx=0.88, rely=0.7, anchor="center")
+
+
+            label_rua = tk.Label(nova_janela, text="Rua:")
+            label_rua.place(relx=0.70, rely=0.8, anchor="center")
+            entry_rua = tk.Entry(nova_janela)
+            entry_rua.place(relx=0.88, rely=0.8, anchor="center")
+
+
+    # botões na nova janela
+            self.botao_salvar= tk.Button(nova_janela, text="salvar", command = self.obter_dados)
+            self.botao_salvar.place(relx=0.4, rely=0.9, anchor="center")
+
+
+            self.botao_ja_cadastrado = tk.Button(nova_janela, text="já cadastrado", command=self.abrir_nova_janela2)
+            self.botao_ja_cadastrado.place(relx=0.5,
+rely=0.9, anchor="center")
+        
+    def formatar_cpf(self, event):
+        # valor atual cpf
+        cpf = entry_cpf.get()
+
+
+# Remove todos os caracteres não numéricos
+        cpf = ''.join(filter(str.isdigit, cpf))
+
+
+        if len(cpf) == 11:
+            cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+        else:
+            cpf_formatado = cpf
+            cpf_formatado = cpf
+
+
+# campo formato CPF
+        entry_cpf.delete(0, tk.END)
+        entry_cpf.insert(0, cpf_formatado)
+   
+   
+    def formatar_data(self, event):
+        # valor atual data
+        data= entry_data.get()
+# Remove todos os caracteres não numéricos
+        data= ''.join(filter(str.isdigit, cpf))
+
+
+        if len(data) == 8:
+            data_formatado = f"{data[:2]}/{data[2:4]}/{data[4:8]}"
+        else:
+            data_formatado = data  
+            data_formatado = data
+
+
+# campo formato data
+        entry_data.delete(0, tk.END)
+        entry_data.insert(0, data_formatado)
+
+    def formatar_cpf_r(self, event):
+        # valor atual cpf_r
+        cpf_r= entry_cpf_responsa.get()
+
+
+# Remove todos os caracteres não numéricos
+        cpf_r= ''.join(filter(str.isdigit, cpf_r))
+
+
+        if len(cpf_r) == 11:
+            cpf_r_formatado = f"{cpf_r[:3]}.{cpf_r[3:6]}.{cpf_r[6:9]}-{cpf_r[9:]}"
+        else:
+            cpf_r_formatado = cpf_r
+            cpf_r_formatado = cpf_r
+
+    def formatar_telefone(self, event):
+        # valor atual telefone
+        t= entry_telefone.get()
+
+
+# Remove todos os caracteres não numéricos
+        t= ''.join(filter(str.isdigit, t))
+
+
+        if len(t) == 11:
+            t_formatado = f"({t[:2]}){t[2:7]}-{t[7:11]}"
+        else:
+            t_formatado = t
+            t_formatado = t
+
+# campo formatar telefone
+        entry_telefone.delete(0, tk.END)
+        entry_telefone.insert(0, t_formatado)
+
+    def obter_dados(self):
+        nome = entry_nome.get()
+        email = entry_email.get()
+        telefone = entry_telefone.get()
+        cpf = entry_cpf.get()
+        data = entry_data.get()
+        usuario = entry_usuario.get()
+        senha = entry_senh.get()
+        cpf_re=entry_cpf_responsa.get()
+        l=entry_localizacao.get()
+        rua=entry_rua.get()
+        
+
+        
+        global dados_usuario
+        dados_usuario = [nome, email, telefone, cpf, data, usuario, senha,cpf_re,l,rua]
+
+
+        
+        self.salvar_informacoes()
+
+
+    def salvar_informacoes(self):
+        # Escrevendo os dados no arquivo informacoes
+        with open("informacoes.txt", "a") as arquivo:
+            arquivo.writelines(f'{dados_usuario}\n')
+           
+    def abrir_nova_janela2(self):
+               nova_janela2= tk.Toplevel(self.tela)
+               nova_janela2.title("Biblioteca Vinícios de Morais:Login dos cadastrados")
+               nova_janela2.geometry("700x500")
+               nova_janela2.configure(background='black')
+               nova_janela2.resizable=(False, False)
+                # Entradas de usuário e senha
+               global entry_usua
+               global entry_s
+
+            #usuario
+               label_usua = tk.Label(nova_janela2, text="Usuário:")
+               label_usua.place(relx=0.05, rely=0.4, anchor="center")
+               entry_usua = tk.Entry(nova_janela2)
+               entry_usua.place(relx=0.2, rely=0.4, anchor="center")
+
+            #senha
+               label_s = tk.Label(nova_janela2, text="senha:")
+               label_s.place(relx=0.05, rely=0.5, anchor="center")
+               entry_s = tk.Entry(nova_janela2, show="*")
+               entry_s.place(relx=0.2, rely=0.5, anchor="center")
+               #botão de verificaçõa do login do usuario
+
+               botao_log= tk.Button(nova_janela2, text="Login", command=self.verificar_login2)
+               botao_log.place(relx=0.2, rely=0.6, anchor="center")
+               
+               botao_voltar= tk.Button(nova_janela2, text="Voltar", command=self.abrir_nova_janela)
+               botao_voltar.place(relx=0.1, rely=0.9, anchor="center")
+               
+
+
+#imagem
+               self.imagem3 = tk.PhotoImage(file="4.png")  
+               self.label_imagem3 = tk.Label(nova_janela2, image=self.imagem3, bg='black')
+               self.label_imagem3.place(relx=0.3, rely=0.1)
+
+
+    def verificar_login2(self):
+        global palavra2
+        global palavra1
+        palavra1 = entry_usua.get()
+        palavra2 = entry_s.get()
+        encontradas = False
+
+
+        # Leitura
+        with open('informacoes.txt', 'r') as arquivo:
+            # Ler  linha por linha
+            for linha in arquivo:
+                dados_usuario = eval(linha)  
+                # Verificação
+                if palavra1 in linha and palavra2 in linha and len(dados_usuario) >= 7 and palavra1 == dados_usuario[5] and palavra2 == dados_usuario[6]:
+                    encontradas = True
+                    messagebox.showinfo("Verificar_login2", "Login bem-sucedido!")
+                    self.abrir_nova_janela3()
+                    break  
+
+                else:
+                  messagebox.showerror("Login", "Seus dados estão errados")
+                  self.abrir_nova_janela2()
+                  break
+            
+       
+    def abrir_nova_janela3(self):
+               nova_janela3= tk.Toplevel(self.tela)
+               nova_janela3.title("Biblioteca Vinicios de Morais:Estante virtual")
+               nova_janela3.geometry("700x500")
+               nova_janela3.configure(background='#008080')
+               nova_janela3.resizable=(False, False)
+               self.imagem4 = tk.PhotoImage(file="5.png")  
+               self.label_imagem4 = tk.Label(nova_janela3, image=self.imagem4)
+               self.label_imagem4.place(relx=0.3, rely=0.012)
+                # Botão informações
+               botao_in= tk.Button(nova_janela3, text="informações", command=self.abrir_nova_janela4)             
+               botao_in.place(relx=0.1, rely=0.7, anchor="center")
+               
+               botao_voltar= tk.Button(nova_janela3, text="Cadastro", command=self.abrir_nova_janela2)
+               botao_voltar.place(relx=0.1, rely=0.9, anchor="center")
+ 
+    def abrir_nova_janela4(self):
+               nova_janela4= tk.Toplevel(self.tela)
+               nova_janela4.title("Biblioteca Vinícios de Morais: Sobre Vinícios de Morais")
+               nova_janela4.geometry("700x500")
+               nova_janela4.configure(background='black')
+               nova_janela4.resizable=(False, False)
+               self.imagem5 = tk.PhotoImage(file="7.png")  
+               self.label_imagem5 = tk.Label(nova_janela4, image=self.imagem5)
+               self.label_imagem5.place(relx=0.2, rely=0.012)
+               
+               botao_voltar= tk.Button(nova_janela4, text="Estante", command=self.abrir_nova_janela3)
+               botao_voltar.place(relx=0.1, rely=0.9, anchor="center")
+
+ #Loop do código:              
+if __name__ == "__main__":
+    tela= tk.Tk()
+    app = SistemaLogin(tela)
+    tela.mainloop()
+    
