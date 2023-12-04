@@ -66,7 +66,9 @@ class SistemaLogin:
             nova_janela.configure(background='#008080')
             nova_janela.resizable=(False, False)
 
-
+            self.imag = tk.PhotoImage(file="2.png")  
+            self.label_imag= tk.Label(nova_janela, image=self.imag, bg='#008080')
+            self.label_imag.place(relx=0.1, rely=0.12)
            
             label_nome = tk.Label(nova_janela, text="Nome :")
             label_nome.place(relx=0.05, rely=0.4, anchor="center")
@@ -167,7 +169,7 @@ rely=0.9, anchor="center")
         # valor atual data
         data= entry_data.get()
 # Remove todos os caracteres não numéricos
-        data= ''.join(filter(str.isdigit, cpf))
+        data= ''.join(filter(str.isdigit, data))
 
 
         if len(data) == 8:
@@ -182,20 +184,24 @@ rely=0.9, anchor="center")
         entry_data.insert(0, data_formatado)
 
     def formatar_cpf_r(self, event):
-        # valor atual cpf_r
-        cpf_r= entry_cpf_responsa.get()
+        # valor atual cpf
+        cpf_r = entry_cpf_responsa.get()
 
 
 # Remove todos os caracteres não numéricos
-        cpf_r= ''.join(filter(str.isdigit, cpf_r))
+        cpf_r = ''.join(filter(str.isdigit, cpf_r))
 
 
         if len(cpf_r) == 11:
-            cpf_r_formatado = f"{cpf_r[:3]}.{cpf_r[3:6]}.{cpf_r[6:9]}-{cpf_r[9:]}"
+            cpf_formatado_r= f"{cpf_r[:3]}.{cpf_r[3:6]}.{cpf_r[6:9]}-{cpf_r[9:]}"
         else:
-            cpf_r_formatado = cpf_r
-            cpf_r_formatado = cpf_r
+            cpf_formatado_r= cpf_r
+            cpf_formatado_r= cpf_r
 
+
+# campo formato CPF
+        entry_cpf_responsa.delete(0, tk.END)
+        entry_cpf_responsa.insert(0, cpf_formatado_r)
     def formatar_telefone(self, event):
         # valor atual telefone
         t= entry_telefone.get()
@@ -282,6 +288,7 @@ rely=0.9, anchor="center")
     def verificar_login2(self):
         global palavra2
         global palavra1
+        global encontradas
         palavra1 = entry_usua.get()
         palavra2 = entry_s.get()
         encontradas = False
