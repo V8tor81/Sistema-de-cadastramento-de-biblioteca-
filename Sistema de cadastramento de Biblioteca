@@ -327,7 +327,7 @@ rely=0.9, anchor="center")
                nova_janela4.geometry("700x500")
                nova_janela4.configure(background='black')
                nova_janela4.resizable=(False, False)
-               self.imagem5 = tk.PhotoImage(file="7.png")  
+               self.imagem5 = tk.PhotoImage(file="6.png")  
                self.label_imagem5 = tk.Label(nova_janela4, image=self.imagem5)
                self.label_imagem5.place(relx=0.2, rely=0.012)
                
