@@ -1,3 +1,4 @@
+
 import tkinter as tk
 from tkinter import messagebox
 import os
@@ -8,7 +9,8 @@ class SistemaLogin:
         self.tela.title("Biblioteca Vinícios de Morais:Acesso bibliotecário")
         self.tela.geometry("700x500")
         self.tela.configure(background='black')
-        self.tela.resizable=(False, False)
+        self.tela.minsize(width=700, height=500)
+        self.tela.maxsize(width=700, height=500)
         self.create_widgets()
     def create_widgets(self):
         global entry_usuario1
@@ -44,7 +46,7 @@ class SistemaLogin:
         usuario = entry_usuario1.get()
         senha = entry_senha.get()
    
-        if usuario == "Ana Ruth" and senha == "Anavitoria" or usuario==" Alison Vieira" and senha=="00000" or usuario=="Bruna Luana" and senha=="bolinha04":
+        if usuario == "Ana Ruth" and senha == "Anavitoria" or usuario==" Alison Vieira" and senha=="00000" or usuario=="Bruna Luana" and senha=="bolinha04" :
             messagebox.showinfo("Login", "Login bem-sucedido!")
             self.abrir_nova_janela()
         else:
@@ -64,7 +66,8 @@ class SistemaLogin:
             nova_janela.title("Biblioteca Vinícios de Morais:Cadastramento")
             nova_janela.geometry("700x500")
             nova_janela.configure(background='#008080')
-            nova_janela.resizable=(False, False)
+            nova_janela.minsize(width=700, height=500)
+            nova_janela.maxsize(width=700, height=500)
 
             self.imag = tk.PhotoImage(file="2.png")  
             self.label_imag= tk.Label(nova_janela, image=self.imag, bg='#008080')
@@ -253,7 +256,8 @@ rely=0.9, anchor="center")
                nova_janela2.title("Biblioteca Vinícios de Morais:Login dos cadastrados")
                nova_janela2.geometry("700x500")
                nova_janela2.configure(background='black')
-               nova_janela2.resizable=(False, False)
+               nova_janela2.minsize(width=700, height=500)
+               nova_janela2.maxsize(width=700, height=500)
                 # Entradas de usuário e senha
                global entry_usua
                global entry_s
@@ -293,23 +297,21 @@ rely=0.9, anchor="center")
         palavra2 = entry_s.get()
         encontradas = False
 
-
         # Leitura
         with open('informacoes.txt', 'r') as arquivo:
-            # Ler  linha por linha
+            # Ler linha por linha
             for linha in arquivo:
-                dados_usuario = eval(linha)  
+                dados_usuario = eval(linha)
                 # Verificação
-                if palavra1 in linha and palavra2 in linha and len(dados_usuario) >= 7 and palavra1 == dados_usuario[5] and palavra2 == dados_usuario[6]:
+                if len(dados_usuario) >= 7 and palavra1 == dados_usuario[5] and palavra2 == dados_usuario[6]:
                     encontradas = True
                     messagebox.showinfo("Verificar_login2", "Login bem-sucedido!")
                     self.abrir_nova_janela3()
-                    break  
+                    break
 
-                else:
-                  messagebox.showerror("Login", "Seus dados estão errados")
-                  self.abrir_nova_janela2()
-                  break
+        if not encontradas:
+            messagebox.showerror("Login", "Seus dados estão errados")
+
             
        
     def abrir_nova_janela3(self):
@@ -317,7 +319,8 @@ rely=0.9, anchor="center")
                nova_janela3.title("Biblioteca Vinicios de Morais:Estante virtual")
                nova_janela3.geometry("700x500")
                nova_janela3.configure(background='#008080')
-               nova_janela3.resizable=(False, False)
+               nova_janela3.minsize(width=700, height=500)
+               nova_janela3.maxsize(width=700, height=500)
                self.imagem4 = tk.PhotoImage(file="5.png")  
                self.label_imagem4 = tk.Label(nova_janela3, image=self.imagem4)
                self.label_imagem4.place(relx=0.3, rely=0.012)
@@ -333,7 +336,8 @@ rely=0.9, anchor="center")
                nova_janela4.title("Biblioteca Vinícios de Morais: Sobre Vinícios de Morais")
                nova_janela4.geometry("700x500")
                nova_janela4.configure(background='black')
-               nova_janela4.resizable=(False, False)
+               nova_janela4.minsize(width=700, height=500)
+               nova_janela4.maxsize(width=700, height=500)
                self.imagem5 = tk.PhotoImage(file="6.png")  
                self.label_imagem5 = tk.Label(nova_janela4, image=self.imagem5)
                self.label_imagem5.place(relx=0.2, rely=0.012)
