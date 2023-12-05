@@ -297,20 +297,32 @@ rely=0.9, anchor="center")
         palavra2 = entry_s.get()
         encontradas = False
 
-        # Leitura
+    def verificar_login2(self):
+        global palavra2
+        global palavra1
+        palavra1 = entry_usua.get()
+        palavra2 = entry_s.get()
+        encontradas = False
+
+
+        # Abrir o arquivo em modo de leitura
         with open('informacoes.txt', 'r') as arquivo:
-            # Ler linha por linha
+            # Ler o arquivo linha por linha
             for linha in arquivo:
-                dados_usuario = eval(linha)
-                # Verificação
-                if len(dados_usuario) >= 7 and palavra1 == dados_usuario[5] and palavra2 == dados_usuario[6]:
+                dados_usuario = eval(linha)  
+                # Verificar se as duas palavras estão na mesma linha
+                if palavra1 in linha and palavra2 in linha and len(dados_usuario) >= 7 and palavra1 == dados_usuario[5] and palavra2 == dados_usuario[6]:
                     encontradas = True
                     messagebox.showinfo("Verificar_login2", "Login bem-sucedido!")
                     self.abrir_nova_janela3()
-                    break
+                    break  # Se encontrarmos as palavras em uma linha, não precisamos mais continuar
 
-        if not encontradas:
-            messagebox.showerror("Login", "Seus dados estão errados")
+                else:
+                  messagebox.showerror("Login", "Seus dados estão errados")
+                  self.abrir_nova_janela2()
+                  break
+            
+
 
             
        
